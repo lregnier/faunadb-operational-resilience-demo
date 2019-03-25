@@ -1,0 +1,6 @@
+auth_root_key: secret
+replica_name: replica_1
+network_listen_address: 172.17.0.3
+network_broadcast_address: 172.17.0.3
+network_admin_http_address: 172.17.0.3
+network_coordinator_http_address: 172.17.0.3
