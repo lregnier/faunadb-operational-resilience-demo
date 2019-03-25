@@ -57,7 +57,7 @@ docker run --rm --name replica2_node2 -p 8447:8443 \
 #### Replica 2: Node 3
 
 ```
-docker run --rm --name replica2_node3 -p 8448:8444 \
+docker run --rm --name replica2_node3 -p 8448:8443 \
     -v "$(pwd)/replica_2/node_3/var/lib/faunadb:/var/lib/faunadb" \
     -v "$(pwd)/replica_2/node_3/var/log/faunadb:/var/log/faunadb" \
     -v "$(pwd)/replica_2/node_3/etc/faunadb.yml:/etc/faunadb.yml" \
@@ -89,7 +89,7 @@ docker run --rm --name replica3_node2 -p 8450:8443 \
 #### Replica 3: Node 3
 
 ```
-docker run --rm --name replica3_node3 -p 8451:8444 \
+docker run --rm --name replica3_node3 -p 8451:8443 \
     -v "$(pwd)/replica_3/node_3/var/lib/faunadb:/var/lib/faunadb" \
     -v "$(pwd)/replica_3/node_3/var/log/faunadb:/var/log/faunadb" \
     -v "$(pwd)/replica_3/node_3/etc/faunadb.yml:/etc/faunadb.yml" \
