@@ -1,38 +1,61 @@
-version: '3.2'
+version: '3'
 
 services:
+  # Replica 1
   replica1_node1:
       container_name: replica1_node1
-      image: fauna/faunadb
-      volumes:
-        - './replica_1/node_1/etc/faunadb.yml:/etc/faunadb.yml'
-      expose:
-        - "8443"
-      command: '--config /etc/faunadb.yml'
+      image: lregnier/faunadb
+      # First node initializes the cluster. The rest
+      # of the nodes join the cluster through it.
+      command: '--replica_name replica1 --init'
 
   replica1_node2:
       container_name: replica1_node2
-      image: fauna/faunadb
-      volumes:
-        - './replica_1/node_2/etc/faunadb.yml:/etc/faunadb.yml'
-      expose:
-        - "8443"
-      links:
-        - replica1_node1
-      command: '--config /etc/faunadb.yml --join replica1_node1'
-      depends_on:
-        - replica1_node1 
+      image: lregnier/faunadb
+      command: '--replica_name replica1 --join replica1_node1' 
 
+  replica1_node3:
+      container_name: replica1_node3
+      image: lregnier/faunadb
+      command: '--replica_name replica1 --join replica1_node1' 
+
+  # Replica 2
+  replica2_node1:
+      container_name: replica2_node1
+      image: lregnier/faunadb
+      command: '--replica_name replica2 --join replica1_node1'
+
+  replica2_node2:
+      container_name: replica2_node2
+      image: lregnier/faunadb
+      command: '--replica_name replica2 --join replica1_node1' 
+
+  replica2_node3:
+      container_name: replica2_node3
+      image: lregnier/faunadb
+      command: '--replica_name replica2 --join replica1_node1' 
+
+  # Replica 3
+  replica3_node1:
+      container_name: replica3_node1
+      image: lregnier/faunadb
+      command: '--replica_name replica3 --join replica1_node1'
+
+  replica3_node2:
+      container_name: replica3_node2
+      image: lregnier/faunadb
+      command: '--replica_name replica3 --join replica1_node1' 
+
+  replica3_node3:
+      container_name: replica3_node3
+      image: lregnier/faunadb
+      command: '--replica_name replica3 --join replica1_node1' 
+
+  # Load Balancer 
   load_balancer:
       container_name: load_balancer
       image: nginx
       volumes:
         - './load_balancer/etc/nginx/nginx.conf:/etc/nginx/nginx.conf'
-      links:
-          - replica1_node1
-          - replica1_node2
       ports:
-          - '8080:8080'
-      depends_on:
-        - replica1_node1
-        - replica1_node2
+          - '8443:8443'
