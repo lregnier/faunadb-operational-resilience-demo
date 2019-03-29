@@ -1,4 +1,0 @@
-auth_root_key: secret
-replica_name: replica_2
-network_listen_address: 172.17.0.6
-network_broadcast_address: 172.17.0.6
