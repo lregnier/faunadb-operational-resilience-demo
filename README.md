@@ -260,7 +260,7 @@ docker-compose kill replica1_node1
 ### 2. Kill a whole replica
 
 ```shell
-docker-compose kill replica2_node1 replica2_node1 replica2_node1
+docker-compose kill replica2_node1 replica2_node2 replica2_node3
 ```
 
 ### 3. Skew clocks on remaining nodes 
