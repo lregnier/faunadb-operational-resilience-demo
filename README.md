@@ -5,7 +5,7 @@ In this tutorial we will demonstrate FaunaDB resilience capabilities in the face
 #### Table of Contents
 * [Prerequisites](#prerequisites)
 * [Set up the Cluster](#set-up-the-cluster)
-* [Set up the Demo App](#set-up-the-demo-app)
+* [Start up Load Tests](#set-up-load-tests)
 * [Scenarios](#scenarios)
 * [Conclusions](#conclusions)
 
@@ -247,10 +247,47 @@ $ curl http://localhost:8443/ping
 
 That's it! At this point we shold have a fully workable FaunaDB cluster up and running!
 
-## Set up the Demo App
-// TODO
+## Start up Load Tests
+
+### 1. Install JMeter
+Follow steps for installing [JMeter](https://jmeter.apache.org/download_jmeter.cgi).
+
+
+### 2. Install InfluxDB and Grafana
+Follow steps for installing [InfluxDB](https://www.influxdata.com/) and [Grafana](https://grafana.com/). See tutorial on how to use it with JMeter: [How to Use Grafana to Monitor JMeter Non-GUI Results](https://www.blazemeter.com/blog/how-to-use-grafana-to-monitor-jmeter-non-gui-results-part-2).
+
+Import InfluxDB/JMeter Dashboard from [here](https://grafana.com/dashboards/5496).
+
+
+### 3. Build Load Tests
+Package jars by running:
+
+```
+$ cd load-tests && ./mvnw package
+```
+
+This will yield a series of jars. Move the jars to the JMeter classpath folders:
+
+| FROM                                       | TO                                              |
+|--------------------------------------------|-------------------------------------------------|
+| load-tests/target/load-tests-1.0.jar       | $JMETER_HOME/bin/load-tests-1.0.jar             |
+| load-tests/target/load-tests-1.0-tests.jar | $JMETER_HOME/bin/junit/load-tests-1.0-tests.jar |
+| load-tests/target/dependencies/*.jar       | $JMETER_HOME/bin/*.jar                          |
+
+
+### 4. Run Load Tests
+A. Open TestPlan on JMeter: `load-test/jmeter-load-tests.jmx`
+
+B. Set `faunadb_endpoint` and `faunadb_secret` `User Defined Variables` at Test Plan level.
+
+C. Run tests.
+
+D. See live results on Grafana.
 
 ## Scenarios
+
+Setup [GCP](https://cloud.google.com/gcp/) access/account.
+
 ### 1. Kill a node 
 
 ```shell
