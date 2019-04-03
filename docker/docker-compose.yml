@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  # Replica 1
+  replica1_node1:
+      container_name: replica1_node1
+      image: lregnier/faunadb
+      # First node initializes the cluster. The rest
+      # of the nodes join the cluster through it.
+      command: '--replica_name replica1 --init'
+
+   replica1_node2:
+       container_name: replica1_node2
+       image: lregnier/faunadb
+       command: '--replica_name replica1 --join replica1_node1'
+
+   replica1_node3:
+       container_name: replica1_node3
+       image: lregnier/faunadb
+       command: '--replica_name replica1 --join replica1_node1'
+
+  # Replica 2
+  replica2_node1:
+      container_name: replica2_node1
+      image: lregnier/faunadb
+      command: '--replica_name replica2 --join replica1_node1'
+
+   replica2_node2:
+       container_name: replica2_node2
+       image: lregnier/faunadb
+       command: '--replica_name replica2 --join replica1_node1'
+
+   replica2_node3:
+       container_name: replica2_node3
+       image: lregnier/faunadb
+       command: '--replica_name replica2 --join replica1_node1'
+
+  # Replica 3
+  replica3_node1:
+      container_name: replica3_node1
+      image: lregnier/faunadb
+      command: '--replica_name replica3 --join replica1_node1'
+
+   replica3_node2:
+       container_name: replica3_node2
+       image: lregnier/faunadb
+       command: '--replica_name replica3 --join replica1_node1'
+
+   replica3_node3:
+       container_name: replica3_node3
+       image: lregnier/faunadb
+       command: '--replica_name replica3 --join replica1_node1'
+
+  # Load Balancer 
+  load_balancer:
+      container_name: load_balancer
+      image: nginx
+      volumes:
+        - './load_balancer/etc/nginx/nginx.conf:/etc/nginx/nginx.conf'
+      ports:
+          - '8443:8443'
