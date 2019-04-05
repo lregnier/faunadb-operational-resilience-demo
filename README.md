@@ -270,9 +270,9 @@ This will yield a series of jars. Move the jars to the JMeter classpath folders:
 
 | FROM                                       | TO                                              |
 |--------------------------------------------|-------------------------------------------------|
-| load-tests/target/load-tests-1.0.jar       | $JMETER_HOME/bin/load-tests-1.0.jar             |
-| load-tests/target/load-tests-1.0-tests.jar | $JMETER_HOME/bin/junit/load-tests-1.0-tests.jar |
-| load-tests/target/dependencies/*.jar       | $JMETER_HOME/bin/*.jar                          |
+| load-tests/target/load-tests-1.0.jar       | $JMETER_HOME/lib/load-tests-1.0.jar             |
+| load-tests/target/load-tests-1.0-tests.jar | $JMETER_HOME/lib/junit/load-tests-1.0-tests.jar |
+| load-tests/target/dependencies/*.jar       | $JMETER_HOME/lib/*.jar                          |
 
 ### 4. Build Schema for Tests
 A. Install [FaunaShell](https://github.com/fauna/fauna-shell) and add FaunaDB cluster as an endpoint.
