@@ -254,7 +254,9 @@ Follow steps for installing [JMeter](https://jmeter.apache.org/download_jmeter.c
 
 
 ### 2. Install InfluxDB and Grafana
-Follow steps for installing [InfluxDB](https://www.influxdata.com/) and [Grafana](https://grafana.com/). See tutorial on how to use it with JMeter: [How to Use Grafana to Monitor JMeter Non-GUI Results](https://www.blazemeter.com/blog/how-to-use-grafana-to-monitor-jmeter-non-gui-results-part-2).
+Follow steps for installing [InfluxDB](https://www.influxdata.com/) and [Grafana](https://grafana.com/). 
+
+> See tutorial on how to use them with JMeter: [How to Use Grafana to Monitor JMeter Non-GUI Results](https://www.blazemeter.com/blog/how-to-use-grafana-to-monitor-jmeter-non-gui-results-part-2).
 
 Import InfluxDB/JMeter Dashboard for Grafana from [here](https://grafana.com/dashboards/5496).
 
@@ -282,11 +284,11 @@ B. Create a DB at FaunaDB cluster for the load tests: `load-tests`.
 C. Create schema using `load-tests/faunadb/create_schema.fql`:
 
 ```shell
-$ fauna run-queries demo-app --file=.load-tests/faunadb/create_schema.fql
+$ fauna run-queries load-tests --file=.load-tests/faunadb/create_schema.fql
 ```
 
 ### 6. Run Load Tests
-A. Open TestPlan on JMeter: `load-test/jmeter-load-tests.jmx`
+A. Open TestPlan on JMeter: `load-tests/jmeter/load-tests.jmx`
 
 B. Set `faunadb_endpoint` and `faunadb_secret` User Defined Variables at Test Plan level.
 
@@ -309,7 +311,10 @@ docker-compose kill replica2_node1 replica2_node2 replica2_node3
 ```
 
 ### 3. Skew clocks on remaining nodes 
-// TODO: ???
+```shell
+$ docker exec -it replica3_node1 /bin/bash
+
+```
 
 
 
