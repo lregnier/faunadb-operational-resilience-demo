@@ -263,16 +263,16 @@ Import InfluxDB/JMeter Dashboard for Grafana from [here](https://grafana.com/das
 Package jars by running:
 
 ```
-$ cd load-tests && ./mvnw package
+$ cd load-tests && sbt package-all
 ```
 
 This will yield a series of jars. Move the jars to the JMeter classpath folders:
 
-| FROM                                       | TO                                              |
-|--------------------------------------------|-------------------------------------------------|
-| load-tests/target/load-tests-1.0.jar       | $JMETER_HOME/lib/load-tests-1.0.jar             |
-| load-tests/target/load-tests-1.0-tests.jar | $JMETER_HOME/lib/junit/load-tests-1.0-tests.jar |
-| load-tests/target/dependencies/*.jar       | $JMETER_HOME/lib/*.jar                          |
+| FROM                                                       | TO                                                   |
+|------------------------------------------------------------|------------------------------------------------------|
+| load-tests/target/scala-2.12/load-tests_2.12-1.0.jar       | $JMETER_HOME/lib/load-tests_2.12-1.0.jar             |
+| load-tests/target/scala-2.12/load-tests_2.12-1.0-tests.jar | $JMETER_HOME/lib/junit/load-tests_2.12-1.0-tests.jar |
+| load-tests/target/scala-2.12/lib/*.jar                     | $JMETER_HOME/lib/*.jar                               |
 
 ### 4. Build Schema for Tests
 A. Install [FaunaShell](https://github.com/fauna/fauna-shell) and add FaunaDB cluster as an endpoint.
@@ -288,7 +288,7 @@ $ fauna run-queries demo-app --file=.load-tests/faunadb/create_schema.fql
 ### 6. Run Load Tests
 A. Open TestPlan on JMeter: `load-test/jmeter-load-tests.jmx`
 
-B. Set `faunadb_endpoint` and `faunadb_secret` `User Defined Variables` at Test Plan level.
+B. Set `faunadb_endpoint` and `faunadb_secret` User Defined Variables at Test Plan level.
 
 C. Run tests.
 
