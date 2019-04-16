@@ -15,7 +15,7 @@
           </elementProp>
           <elementProp name="faunadb_secret" elementType="Argument">
             <stringProp name="Argument.name">faunadb_secret</stringProp>
-            <stringProp name="Argument.value">secret-key</stringProp>
+            <stringProp name="Argument.value">fnADLicGw8ACBUbxBWVZVscePP3Ht0VdtnCBGvJV</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>

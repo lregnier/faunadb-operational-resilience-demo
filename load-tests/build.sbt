@@ -1,4 +1,4 @@
-name := "load-tests-scala"
+name := "load-tests"
 
 version := "1.0"
 
